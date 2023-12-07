@@ -1,0 +1,27 @@
+services:
+#コンテナの数によって、services直下の定義数が変わる
+  app: 
+    container_name: next-app
+    build:
+      dockerfile: ./Dockerfile
+      context: .
+    tty: true
+    volumes:
+      #bind...編集が反映される
+      - type: bind
+        #source...ホストのアドレス
+        source: ./app
+        #target...コンテナのアドレス
+        target: /usr/src/app
+      #volume...反映されない
+      - type: volume
+        source: mysql-db
+        target: /var/lib/mysql
+      #DockerfileのCMDで定義されてるのでyamlで起動commandを定義する必要はない
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_USER: hoge
+      MYSQL_PASSWORD: password
+      MYSQL_DATABASE: event
+volumes:
+  mysql-db:
