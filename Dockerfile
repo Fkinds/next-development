@@ -9,6 +9,8 @@ RUN apt-get update && apt-get install -y curl
 RUN apt-get update && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && apt install -y nodejs 
 RUN apt-get update && apt-get install -y mariadb-server
 
+#COPY app ./next-app
+
 WORKDIR /app
 
 CMD ["bash"]
